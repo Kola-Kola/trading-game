@@ -1,4 +1,4 @@
 export interface ILineChartProps {
-	name: string
-	euros: number;
+  name: string;
+  euros: number;
 }
