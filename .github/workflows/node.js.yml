@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,50 +14,42 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
-      
-    - name: Linting code ✨
-      run: npm run lint
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run the tests with coverage ✅
-      run: npm test --coverage
-      
-    - name: Upload coverage to Codecov ✅
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Linting code ✨
+        run: npm run lint
 
-    - name: Build and Deploy
-      on:
-        push:
-          branches: [ "master", "develop" ]
-      permissions:
-        contents: write
-      jobs:
-        build-and-deploy:
-          concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
-          runs-on: ubuntu-latest
-          steps:
-            - name: Checkout 🛎️
-              uses: actions/checkout@v3
+      - name: Run the tests with coverage ✅
+        run: npm test --coverage
 
-            - name: Install and Build 🔧
-              run: |
-                npm ci
-                npm run build
+      - name: Upload coverage to Codecov ✅
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-            - name: Deploy 🚀
-              uses: JamesIves/github-pages-deploy-action@v4
-              with:
-                folder: build # The folder the action should deploy.
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token.
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
