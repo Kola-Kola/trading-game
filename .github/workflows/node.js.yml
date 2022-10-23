@@ -50,7 +50,6 @@ jobs:
           concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
           runs-on: ubuntu-latest
           steps:
-            - uses: JamesIves/github-pages-deploy-action@v4
             - name: Checkout 🛎️
               uses: actions/checkout@v3
 
@@ -63,3 +62,4 @@ jobs:
               uses: JamesIves/github-pages-deploy-action@v4
               with:
                 folder: build # The folder the action should deploy.
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token.
