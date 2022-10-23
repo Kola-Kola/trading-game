@@ -11,6 +11,15 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:prettier/recommended",
   ],
+  ignorePatterns: [
+    "node_modules/",
+    "dist/",
+    "build/",
+    "src/serviceWorker.ts",
+    "src/reportWebVitals.ts",
+    "src/setupTests.ts",
+    "src/react-app-env.d.ts",
+  ],
   overrides: [],
   parserOptions: {
     project: "./tsconfig.json",

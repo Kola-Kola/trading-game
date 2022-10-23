@@ -1,6 +1,6 @@
 import chance from "chance";
 
-export const getMoney = () => {
+export const getMoney = (): number => {
   const money = chance()
     .euro({ min: 0, max: 2 })
     .replace(".", ",")
