@@ -1,5 +1,15 @@
 import { ILineChartProps } from "./types";
 
+interface IDataLineChartProps {
+  labels: string[];
+  datasets: Array<{
+    label: string;
+    data: number[];
+    borderColor: string;
+    backgroundColor: string;
+  }>;
+}
+
 export const optionsLineChart = {
   responsive: true,
   plugins: {
@@ -12,7 +22,9 @@ export const optionsLineChart = {
   },
 };
 
-export const dataLineChart = (data: ILineChartProps[]) => ({
+export const dataLineChart = (
+  data: ILineChartProps[]
+): IDataLineChartProps => ({
   labels: data.map((item) => item.name),
   datasets: [
     {

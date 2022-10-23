@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ReactElement } from "react";
 import { getMoney } from "../../utils/getMoney";
 import {
   Chart as ChartJS,
@@ -26,7 +26,7 @@ ChartJS.register(
 
 const INTERVAL = 3500;
 
-const LineChart = () => {
+const LineChart = (): ReactElement => {
   const [data, setData] = useState<ILineChartProps[]>([]);
   const chartRef = useRef<any>();
 
@@ -40,18 +40,20 @@ const LineChart = () => {
     };
   }, [data]);
 
-  const onClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    // FIXME - Store the chartRef in a variable and use it on the next line
+  const onClick = (event: React.MouseEvent<HTMLCanvasElement>): void => {
+    // FIXME - Store the chartRef in a variable and use it
     console.log(getElementAtEvent(chartRef.current, event));
   };
 
   return (
-    <Line
-      ref={chartRef}
-      options={optionsLineChart}
-      data={dataLineChart(data)}
-      onClick={onClick}
-    />
+    <div data-testid="line-chart">
+      <Line
+        ref={chartRef}
+        options={optionsLineChart}
+        data={dataLineChart(data)}
+        onClick={onClick}
+      />
+    </div>
   );
 };
 

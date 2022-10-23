@@ -1,0 +1,4 @@
+# Repository YAML [higher on hierarchy]
+coverage:
+  round: up
+  range: 0..10
