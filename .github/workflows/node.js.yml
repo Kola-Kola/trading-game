@@ -1,4 +1,4 @@
-name: CI/CD
+name: 🎉CI/CD 🎉
 
 on:
   push:
@@ -28,16 +28,37 @@ jobs:
     - name: Install dependencies
       run: npm install
       
-    - name: Linting code
+    - name: Linting code ✨
       run: npm run lint
 
-    - name: Run the tests with coverage
+    - name: Run the tests with coverage ✅
       run: npm test --coverage
       
-    - name: Upload coverage to Codecov
+    - name: Upload coverage to Codecov ✅
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Build
-      run: npm run build
+    - name: Build and Deploy
+      on:
+        push:
+          branches: [ "master", "develop" ]
+      permissions:
+        contents: write
+      jobs:
+        build-and-deploy:
+          concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+          runs-on: ubuntu-latest
+          steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@v3
+
+            - name: Install and Build 🔧
+              run: |
+                npm ci
+                npm run build
+
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                folder: build # The folder the action should deploy.
