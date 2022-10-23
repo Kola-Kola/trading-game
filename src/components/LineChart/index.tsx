@@ -46,12 +46,14 @@ const LineChart = (): ReactElement => {
   };
 
   return (
-    <Line
-      ref={chartRef}
-      options={optionsLineChart}
-      data={dataLineChart(data)}
-      onClick={onClick}
-    />
+    <div data-testid="line-chart">
+      <Line
+        ref={chartRef}
+        options={optionsLineChart}
+        data={dataLineChart(data)}
+        onClick={onClick}
+      />
+    </div>
   );
 };
 

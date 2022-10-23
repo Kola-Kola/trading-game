@@ -3,7 +3,7 @@ import LineChart from "./components/LineChart";
 
 function App(): ReactElement {
   return (
-    <div data-testid="App" className="App">
+    <div className="App">
       <LineChart />
     </div>
   );
