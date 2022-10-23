@@ -41,7 +41,7 @@ const LineChart = () => {
   }, [data]);
 
   const onClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    // FIXME - Store the chartRef in a variable and use it on the next line
+    // FIXME - Store the chartRef in a variable and use it
     console.log(getElementAtEvent(chartRef.current, event));
   };
 
