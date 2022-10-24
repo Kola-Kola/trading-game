@@ -1,9 +1,9 @@
 name: CI/CD
 on:
   push:
-    branches: [ "master", "feat/*", "fix/*", "develop" ]
+    branches: [ "master", "feat/*", "fix/*", "develop", "main" ]
   pull_request:
-    branches: [ "master", "feat/*", "fix/*", "develop" ]
+    branches: [ "master", "feat/*", "fix/*", "develop", "main" ]
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   build-and-deploy:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
@@ -52,5 +52,10 @@ jobs:
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
+        env:
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          repository: ${{ github.repository }}
         with:
           folder: build # The folder the action should deploy.
